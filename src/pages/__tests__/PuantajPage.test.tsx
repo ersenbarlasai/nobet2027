@@ -9,7 +9,7 @@ const TYPE_ID="22222222-2222-4222-8222-222222222222";
 const LIST_ID="33333333-3333-4333-8333-333333333333";
 const TASK_ID="44444444-4444-4444-8444-444444444444";
 const MANUAL_ID="55555555-5555-4555-8555-555555555555";
-const lineBase={teacher_source_id:"T2",teacher_name_snapshot:"ATANAN ÖĞRETMEN",duty_date:"2026-09-14",compensation_type_id:TYPE_ID,compensation_type_name_snapshot:"Ders yerine görevlendirme",quantity:1,unit_rate_snapshot:150,amount_snapshot:150,detail_snapshot:"10/A · FİZİK · 5-ÖO",rate_missing:false,list_version:2,is_historical:false};
+const lineBase={teacher_source_id:"T2",teacher_name_snapshot:"ATANAN ÖĞRETMEN",replaced_teacher_source_id:null,duty_date:"2026-09-14",compensation_type_id:TYPE_ID,compensation_type_name_snapshot:"Ders yerine görevlendirme",quantity:1,unit_rate_snapshot:150,amount_snapshot:150,detail_snapshot:"10/A · FİZİK · 5-ÖO",rate_missing:false,list_version:2,is_historical:false};
 
 describe("Puantaj görev ayrıntıları",()=>{
   afterEach(cleanup);
@@ -113,5 +113,20 @@ describe("Puantaj görev ayrıntıları",()=>{
     render(<PuantajPage/>);
     const taskType=await screen.findByRole("combobox",{name:"Görev türü"});
     expect(within(taskType).getByRole("option",{name:"Ders yerine görevlendirme"})).toBeTruthy();
+  });
+
+  it("ders yerine görevlendirmede yerine girilen öğretmeni zorunlu olarak kaydeder",async()=>{
+    vi.mocked(api.fetchCompensation).mockResolvedValue({items:[
+      {id:TYPE_ID,name:"Ders yerine görevlendirme",systemCode:"SUBSTITUTION",entryMode:"manual",isActive:true,rates:[]},
+    ]});
+    vi.mocked(api.addManualPayroll).mockResolvedValue({status:"ok"});
+    render(<PuantajPage/>);
+    fireEvent.change(await screen.findByRole("combobox",{name:"Atanan öğretmen"}),{target:{value:"T2"}});
+    fireEvent.change(screen.getByRole("combobox",{name:"Görev türü"}),{target:{value:TYPE_ID}});
+    const replacement=screen.getByRole("combobox",{name:"Kimin yerine"});
+    expect(within(replacement).queryByRole("option",{name:"ATANAN ÖĞRETMEN"})).toBeNull();
+    fireEvent.change(replacement,{target:{value:"T3"}});
+    fireEvent.click(screen.getByRole("button",{name:"Ekle"}));
+    await waitFor(()=>expect(api.addManualPayroll).toHaveBeenCalledWith(expect.objectContaining({teacherSourceId:"T2",replacedTeacherSourceId:"T3",compensationTypeId:TYPE_ID,quantity:1})));
   });
 });

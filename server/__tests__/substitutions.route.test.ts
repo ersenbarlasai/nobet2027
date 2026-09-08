@@ -64,9 +64,9 @@ describe("ders yerine görevlendirme route'ları", () => {
   it("manuel puantaj düzenlemesini kimlik ve doğrulanmış alanlarla RPC'ye taşır", async () => {
     const response = await request(appWith(async (name, args) => {
       expect(name).toBe("update_manual_payroll_entry");
-      expect(args).toMatchObject({ p_entry_id: ID, p_teacher_source_id: "T2", p_duty_date: "2026-09-14", p_quantity: 2 });
+      expect(args).toMatchObject({ p_entry_id: ID, p_teacher_source_id: "T2", p_replaced_teacher_source_id: "T1", p_duty_date: "2026-09-14", p_quantity: 2 });
       return { data: { status: "ok" }, error: null };
-    })).put(`/api/substitutions/payroll/entries/${ID}`).set("Origin", ORIGIN).send({ teacherSourceId: "T2", dutyDate: "2026-09-14", compensationTypeId: TASK, quantity: 2, note: "Düzeltildi" });
+    })).put(`/api/substitutions/payroll/entries/${ID}`).set("Origin", ORIGIN).send({ teacherSourceId: "T2", replacedTeacherSourceId: "T1", dutyDate: "2026-09-14", compensationTypeId: TASK, quantity: 2, note: "Düzeltildi" });
     expect(response.status).toBe(200);
   });
 
