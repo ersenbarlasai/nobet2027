@@ -34,3 +34,6 @@ test-results/
 !.env.example
 supabase/.branches/
 supabase/.temp/
+
+# Local Netlify folder
+.netlify

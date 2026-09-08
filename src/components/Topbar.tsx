@@ -1,7 +1,13 @@
-import { Bell, HelpCircle } from "lucide-react";
+import { Bell, HelpCircle, LogOut } from "lucide-react";
+import { useAuth } from "../auth/AuthContext";
 import "./Topbar.css";
 
 export default function Topbar() {
+  const { user, signOut } = useAuth();
+  const initials = user?.email
+    ? user.email.slice(0, 2).toLocaleUpperCase("tr-TR")
+    : "EB";
+
   return (
     <header className="topbar">
       <div className="topbar-spacer" />
@@ -14,9 +20,12 @@ export default function Topbar() {
         <button type="button" className="topbar-icon-btn" aria-label="Yardım">
           <HelpCircle size={18} strokeWidth={2} aria-hidden="true" />
         </button>
-        <div className="topbar-avatar" aria-label="Kullanıcı" role="img">
-          EB
-        </div>
+        {user ? (
+          <button type="button" className="topbar-icon-btn" aria-label="Çıkış yap" title="Çıkış yap" onClick={signOut}>
+            <LogOut size={18} strokeWidth={2} aria-hidden="true" />
+          </button>
+        ) : null}
+        <div className="topbar-avatar" aria-label={user?.email ?? "Kullanıcı"} role="img">{initials}</div>
       </div>
     </header>
   );

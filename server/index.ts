@@ -1,4 +1,5 @@
 import express, { type NextFunction, type Request, type Response } from "express";
+import { pathToFileURL } from "node:url";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { loadConfig, MissingEnvError, type AppConfig } from "./config";
 import { createServerSupabaseClient } from "./supabase";
@@ -145,6 +146,10 @@ function main() {
 
 // Doğrudan çalıştırıldığında (tsx server/index.ts) sunucuyu başlat;
 // testlerde import edildiğinde başlatma.
-if (process.env.VITEST !== "true") {
+const invokedEntryPoint = process.argv[1]
+  ? pathToFileURL(process.argv[1]).href === import.meta.url
+  : false;
+
+if (process.env.VITEST !== "true" && invokedEntryPoint) {
   main();
 }

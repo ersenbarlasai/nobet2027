@@ -1,7 +1,9 @@
-// Yalnızca yerel geliştirme backend'i (bkz. server/). Tarayıcı hiçbir zaman
-// Supabase'e doğrudan bağlanmaz — yalnızca bu 127.0.0.1 adresine istek atar.
-// Backend her zaman ayrı bir süreç olarak çalışır, secret yalnız orada kalır.
-export const LOCAL_API_BASE_URL = "http://127.0.0.1:3001";
+// Yerelde Express geliştirme sunucusu, Netlify'da aynı origin üzerindeki
+// kimlik doğrulamalı Function kullanılır. Supabase secret hiçbir zaman
+// frontend paketine girmez.
+export const LOCAL_API_BASE_URL = import.meta.env.DEV
+  ? "http://127.0.0.1:3001"
+  : (import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ?? "");
 export const TIMETABLE_IMPORTS_URL = `${LOCAL_API_BASE_URL}/api/timetable-imports`;
 export const CURRENT_TIMETABLE_IMPORT_URL = `${LOCAL_API_BASE_URL}/api/timetable-imports/current`;
 export const CLASS_TIMETABLES_CLASSES_URL = `${LOCAL_API_BASE_URL}/api/class-timetables/classes`;
