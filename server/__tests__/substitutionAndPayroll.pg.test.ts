@@ -117,15 +117,17 @@ describe.skipIf(!DB_URL)("ders yerine görevlendirme ve puantaj — gerçek Post
     expect(preview.affectedTasks).toHaveLength(1);
   });
 
-  it("ders yerine görevlendirmeyi otomatik eklemez; manuel kayıt ve kapanış fiyatını dondurur", async () => {
+  it("tamamlanan ders yerine görevlendirmeyi otomatik ekler; manuel kayıt ve kapanış fiyatını dondurur", async () => {
     const list = await rpc<{ version: number; tasks: Array<{ id: string; absentTeacherSourceId: string }> }>("get_substitution_day_list", { p_list_id: listId, p_campus_name: campusName, p_academic_year_name: yearName });
     const task = list.tasks.find((item) => item.absentTeacherSourceId === "T-SECOND")!;
-    await rpc("set_substitution_task_resolution", { p_task_id: task.id, p_teacher_source_id: "T-FREE", p_unfilled_note: null, p_expected_version: list.version, p_override_ack: false, p_override_note: null });
+    const assignment=await rpc<{version:number}>("set_substitution_task_resolution", { p_task_id: task.id, p_teacher_source_id: "T-FREE", p_unfilled_note: null, p_expected_version: list.version, p_override_ack: false, p_override_note: null });
+    await rpc("complete_substitution_day_list",{p_list_id:listId,p_expected_version:assignment.version});
     const type = await db.query("select t.id,t.entry_mode from public.compensation_types t join public.campuses c on c.id=t.campus_id where c.name=$1 and t.system_code='SUBSTITUTION'", [campusName]);
     expect(type.rows[0].entry_mode).toBe("manual");
     const rate = await rpc<{ id: string }>("add_compensation_rate", { p_campus_name: campusName, p_type_id: type.rows[0].id, p_effective_from: "2026-09-01", p_unit_rate: 125.5 });
     const beforeManual = await rpc<{ lines: Array<{ source_kind: string }> }>("get_payroll_overview", { p_campus_name: campusName, p_academic_year_name: yearName, p_anchor_date: "2026-09-07" });
-    expect(beforeManual.lines).toHaveLength(0);
+    expect(beforeManual.lines).toHaveLength(1);
+    expect(beforeManual.lines[0].source_kind).toBe("substitution");
     expect((await rpc<{ status: string }>("add_manual_payroll_entry", {
       p_campus_name: campusName,
       p_academic_year_name: yearName,
@@ -134,12 +136,13 @@ describe.skipIf(!DB_URL)("ders yerine görevlendirme ve puantaj — gerçek Post
       p_type_id: type.rows[0].id,
       p_quantity: 1,
       p_note: "Deniz Yok yerine 3. saat",
+      p_replaced_teacher_source_id: "T-SECOND",
     })).status).toBe("ok");
     const open = await rpc<{ status: string; totals: Array<{ teacher_source_id: string; total_quantity: number }>; lines: Array<{ source_kind: string; rate_missing: boolean }> }>("get_payroll_overview", { p_campus_name: campusName, p_academic_year_name: yearName, p_anchor_date: "2026-09-07" });
     expect(open.status).toBe("open");
-    expect(open.totals.find((item) => item.teacher_source_id === "T-FREE")?.total_quantity).toBe(1);
-    expect(open.lines).toHaveLength(1);
-    expect(open.lines[0].source_kind).toBe("manual");
+    expect(open.totals.find((item) => item.teacher_source_id === "T-FREE")?.total_quantity).toBe(2);
+    expect(open.lines).toHaveLength(2);
+    expect(open.lines.map((item)=>item.source_kind).sort()).toEqual(["manual","substitution"]);
     expect(open.lines.some((item) => item.rate_missing)).toBe(false);
     expect((await rpc<{ status: string }>("close_payroll_period", { p_campus_name: campusName, p_academic_year_name: yearName, p_anchor_date: "2026-09-07", p_force: true })).status).toBe("ok");
     await expect(db.query("update public.compensation_rate_versions set unit_rate=999 where id=$1", [rate.id])).rejects.toThrow(/değiştirilemez/);
@@ -180,6 +183,7 @@ describe.skipIf(!DB_URL)("ders yerine görevlendirme ve puantaj — gerçek Post
       p_type_id: used.id,
       p_quantity: 1,
       p_note: "Geçmiş kayıt korunmalı",
+      p_replaced_teacher_source_id: null,
     })).status).toBe("ok");
 
     expect(await rpc("delete_compensation_type", { p_campus_name: campusName, p_type_id: used.id })).toMatchObject({ status: "ok", action: "deactivated" });
