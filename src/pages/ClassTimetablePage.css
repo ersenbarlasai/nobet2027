@@ -1,0 +1,459 @@
+.ct-page {
+  padding: 28px 32px 48px;
+  width: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ct-page-header .page-title {
+  margin-bottom: 6px;
+}
+
+.ct-control-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ct-control-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 200px;
+}
+
+.ct-control-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-neutral);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.ct-select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 9px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  background: var(--color-surface);
+  min-width: 180px;
+}
+
+.ct-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ct-inline-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-error-text);
+}
+
+.ct-control-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ct-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-bg);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-body);
+  white-space: nowrap;
+}
+
+.ct-print-btn {
+  margin-left: 4px;
+}
+
+.ct-teacher-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: var(--color-primary-light);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.ct-teacher-badge-label {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.ct-teacher-badge-value {
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+/* Skeletons */
+
+.ct-skeleton {
+  background: linear-gradient(90deg, #eef0f6 25%, #f6f7fb 37%, #eef0f6 63%);
+  background-size: 400% 100%;
+  animation: ct-shimmer 1.4s ease infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes ct-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.ct-skeleton-select {
+  width: 180px;
+  height: 38px;
+}
+
+.ct-skeleton-table {
+  width: 100%;
+  height: 360px;
+}
+
+/* Body states */
+
+.ct-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.ct-empty-state {
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 56px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  color: var(--color-neutral);
+}
+
+.ct-empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 4px 0 0;
+}
+
+.ct-empty-desc {
+  font-size: 13px;
+  color: var(--color-neutral);
+  margin: 0;
+}
+
+.ct-error-card {
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--color-error-text);
+}
+
+.ct-error-title {
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+/* Timetable card */
+
+.ct-timetable-card {
+  width: 100%;
+  min-width: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.ct-table-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  max-height: 70vh;
+}
+
+.ct-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 13px;
+  table-layout: fixed;
+}
+
+.ct-corner,
+.ct-period-header {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  z-index: 2;
+  padding: 10px 8px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+.ct-corner {
+  left: 0;
+  z-index: 4;
+  width: 96px;
+  min-width: 96px;
+  text-align: left;
+  font-size: 12px;
+  color: var(--color-neutral);
+}
+
+.ct-period-header {
+  width: auto;
+  min-width: 0;
+  text-align: center;
+}
+
+.ct-period-name {
+  font-size: 13px;
+}
+
+.ct-period-time {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-neutral);
+  margin-top: 2px;
+}
+
+.ct-day-header {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--color-bg);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 10px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  text-align: left;
+  width: 96px;
+  min-width: 96px;
+}
+
+.ct-cell {
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 6px;
+  vertical-align: top;
+  height: 78px;
+}
+
+.ct-cell-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-neutral);
+  font-size: 13px;
+}
+
+.ct-lesson-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+}
+
+.ct-lesson-badge {
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 6px 8px;
+  overflow: hidden;
+  cursor: default;
+}
+
+.ct-lesson-subject {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 12.5px;
+}
+
+.ct-lesson-subject-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ct-lesson-ambiguous-icon {
+  color: var(--color-accent-orange);
+  flex-shrink: 0;
+}
+
+.ct-lesson-teacher,
+.ct-lesson-classroom {
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.85;
+}
+
+/* Öğretmensiz ders (ör. teacherids="" deneme sınavı) — odak ders adında
+   kalsın diye nötr/soluk; hata veya eksiklik gibi vurgulanmaz. */
+.ct-lesson-teacher--unassigned {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.ct-lesson-stack--conflict .ct-lesson-badge {
+  border-color: var(--color-error-border);
+}
+
+.ct-conflict-banner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--color-error-text);
+}
+
+/* Footer */
+
+.ct-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.ct-footer-updated {
+  font-size: 12px;
+  color: var(--color-neutral);
+  margin: 0;
+}
+
+.ct-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ct-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-body);
+}
+
+.ct-legend-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+}
+
+.ct-legend-swatch--filled {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+.ct-legend-swatch--empty {
+  background: var(--color-surface);
+}
+
+.ct-legend-icon-warning {
+  color: var(--color-accent-orange);
+}
+
+.print-only {
+  display: none;
+}
+
+/* === Yazdırma === */
+@media print {
+  .sidebar,
+  .topbar,
+  .ct-control-card,
+  .ct-page-header,
+  .ct-footer {
+    display: none !important;
+  }
+
+  .ct-page {
+    padding: 0;
+    max-width: none;
+  }
+
+  .app-main {
+    margin-left: 0;
+  }
+
+  .ct-timetable-card {
+    box-shadow: none;
+    border: none;
+  }
+
+  .ct-table-scroll {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .print-only {
+    display: block;
+    padding: 12px 4px;
+  }
+
+  .print-only h2 {
+    margin: 0 0 4px;
+    font-size: 18px;
+  }
+
+  .print-only p {
+    margin: 0;
+    font-size: 12px;
+    color: #444;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+}

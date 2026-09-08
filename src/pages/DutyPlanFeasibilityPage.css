@@ -1,0 +1,473 @@
+.dpf-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dpf-page--embedded {
+  gap: 14px;
+}
+
+.dpf-embedded-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 2px 2px 0;
+}
+
+.dpf-embedded-toolbar h2 {
+  margin: 0;
+  color: var(--color-text-dark);
+  font-size: 15px;
+}
+
+.dpf-embedded-toolbar p {
+  margin: 4px 0 0;
+  color: var(--color-neutral);
+  font-size: 12px;
+}
+
+.dpf-disclosure {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.dpf-disclosure > summary {
+  padding: 13px 16px;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dpf-disclosure[open] > summary {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dpf-disclosure .dpf-analysis-details {
+  display: flex;
+  padding: 14px;
+  flex-direction: column;
+  gap: 16px;
+  background: #f8fafc;
+}
+
+.dpf-disclosure .dpf-card {
+  margin: 0;
+}
+
+.dpf-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dpf-header h1 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.dpf-header p {
+  margin: 0;
+  max-width: 70ch;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-neutral);
+}
+
+.dpf-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.dpf-card-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.dpf-skeleton {
+  height: 18px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background: var(--color-bg);
+}
+
+.dpf-error {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.dpf-error-title {
+  margin: 0 0 2px;
+  font-weight: 700;
+}
+
+.dpf-error-desc {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+
+/* --- Genel karar kartı --- */
+
+.dpf-verdict {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.dpf-verdict--ok {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.dpf-verdict--warn {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.dpf-verdict-title {
+  margin: 0 0 2px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.dpf-verdict-desc {
+  margin: 0;
+  font-size: 13px;
+}
+
+.dpf-capacity-comparison {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dpf-capacity-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  color: var(--color-neutral);
+  font-size: 11px;
+}
+
+.dpf-capacity-card strong {
+  color: var(--color-text-dark);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.dpf-capacity-card--ok {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.dpf-capacity-card--warn {
+  border-color: #fed7aa;
+  background: #fff7ed;
+}
+
+.dpf-capacity-card--warn strong {
+  color: #9a3412;
+}
+
+.dpf-capacity-label {
+  color: var(--color-text-body);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Kapsam uyarısı: analizin NE ÖLÇMEDİĞİNİ söyler; yöntem kutusuyla aynı
+   görsel dilde ama vurgulu kenarlıkla ayrılır. */
+.dpf-scope {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-neutral);
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text-body);
+  background: var(--color-bg);
+}
+
+.dpf-method {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text-body);
+  background: var(--color-bg);
+}
+
+/* --- Gün × blok ızgarası --- */
+
+.dpf-grid-scroll {
+  overflow-x: auto;
+}
+
+.dpf-grid {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.dpf-grid th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-neutral);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.dpf-grid tbody th {
+  text-transform: none;
+  font-size: 13px;
+  color: var(--color-text-dark);
+}
+
+.dpf-grid td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.dpf-grid tbody tr:last-child td,
+.dpf-grid tbody tr:last-child th {
+  border-bottom: none;
+}
+
+.dpf-cell {
+  display: table-cell;
+}
+
+.dpf-cell--short {
+  background: #fff7ed;
+}
+
+.dpf-cell-main {
+  display: block;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.dpf-cell--short .dpf-cell-main {
+  color: #9a3412;
+}
+
+.dpf-cell-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--color-neutral);
+}
+
+.dpf-cell-badge {
+  display: inline-block;
+  margin-top: 3px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #fed7aa;
+  color: #9a3412;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.dpf-cell-note {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #b45309;
+}
+
+/* --- Gün ayrıntıları --- */
+
+.dpf-details h2 {
+  margin: 4px 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.dpf-day {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.dpf-day--problem {
+  border-color: #fed7aa;
+}
+
+.dpf-day-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.dpf-day-name {
+  font-weight: 700;
+  color: var(--color-text-dark);
+  min-width: 110px;
+}
+
+.dpf-day-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dpf-day-status--ok {
+  color: #166534;
+}
+
+.dpf-day-status--warn {
+  color: #9a3412;
+}
+
+.dpf-day-toggle {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.dpf-day-body {
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.dpf-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 14px 0 4px;
+}
+
+.dpf-stats dt {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-neutral);
+  font-weight: 700;
+}
+
+.dpf-stats dd {
+  margin: 2px 0 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.dpf-section {
+  margin-top: 16px;
+}
+
+.dpf-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-neutral);
+}
+
+.dpf-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-text-body);
+}
+
+.dpf-code {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dpf-table-scroll {
+  overflow-x: auto;
+}
+
+.dpf-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.dpf-table th {
+  text-align: left;
+  padding: 7px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-neutral);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.dpf-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dpf-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 860px) {
+  .dpf-capacity-comparison {
+    grid-template-columns: 1fr;
+  }
+}

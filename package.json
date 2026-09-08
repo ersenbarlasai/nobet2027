@@ -1,0 +1,45 @@
+{
+  "name": "nobet2027",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n web,api -c blue,green \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:web": "vite",
+    "dev:api": "tsx watch --env-file-if-exists=.env.local server/index.ts",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.4",
+    "exceljs": "^4.4.0",
+    "express": "^5.2.1",
+    "lucide-react": "^1.38.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.6",
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.13.3",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@types/supertest": "^7.2.1",
+    "@vitejs/plugin-react": "^6.1.0",
+    "concurrently": "^10.0.5",
+    "jsdom": "^30.0.1",
+    "oxlint": "^1.79.0",
+    "pg": "^8.23.0",
+    "supertest": "^7.2.2",
+    "tsx": "^4.23.13",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
+  }
+}

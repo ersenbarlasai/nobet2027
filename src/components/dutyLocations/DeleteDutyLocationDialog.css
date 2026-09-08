@@ -1,0 +1,49 @@
+.dl-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.dl-dialog-panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.dl-dialog-panel h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin: 0 0 10px;
+}
+
+.dl-dialog-panel p {
+  font-size: 13px;
+  color: var(--color-text-body);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.dl-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.dl-btn-danger {
+  background: var(--color-error-text);
+  color: #fff;
+  border: 1px solid var(--color-error-text);
+}
+
+.dl-btn-danger:hover:not(:disabled) {
+  opacity: 0.9;
+}

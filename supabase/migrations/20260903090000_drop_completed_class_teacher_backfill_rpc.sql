@@ -1,0 +1,26 @@
+-- ============================================================================
+-- Nöbet2027 — tamamlanmış sınıf öğretmeni backfill RPC'sinin kaldırılması
+-- ============================================================================
+-- public.backfill_class_teacher_relationships(text, text, text, jsonb),
+-- 20260902100000_add_class_teacher_relationship.sql migration'ında eklenmiş,
+-- yalnızca o migration'dan ÖNCE veritabanında zaten var olan tek bir importun
+-- school_classes.class_teacher_id değerlerini XML ile eşitlemek için
+-- tasarlanmış TEK KERELİK bir bakım fonksiyonuydu.
+--
+-- Bu işlem başarıyla tamamlandı (server/scripts/backfillClassTeachers.ts ile
+-- çalıştırıldı, sonuç: 26 eşleşen / 0 farklı / 0 eksik).
+--
+-- Bundan sonraki tüm normal XML importları, sınıf öğretmenini zaten güncel
+-- public.import_timetable_snapshot(jsonb) RPC'si üzerinden otomatik
+-- kaydediyor (bkz. aynı migration'daki CREATE OR REPLACE). Bu nedenle
+-- backfill fonksiyonu artık gereksiz bir bakım yüzeyidir ve kaldırılır —
+-- kalıcı, kullanılmayan bir mutasyon RPC'sinin şemada durmasına gerek yok.
+--
+-- Yalnızca doğru imzaya sahip fonksiyon kaldırılır; başka hiçbir tablo,
+-- kolon, index veya RPC bu migration'dan etkilenmez. school_classes.
+-- class_teacher_id kolonu ve onu dolduran import_timetable_snapshot/
+-- get_class_timetable_snapshot mantığı KALICI olarak kalır — yalnızca
+-- bakım amaçlı backfill RPC'si gider.
+-- ============================================================================
+
+drop function if exists public.backfill_class_teacher_relationships(text, text, text, jsonb);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timetable ascttversion="2023.12.1" importtype="database">
+   <periods options="canadd,export:silent" columns="period,name,short,starttime,endtime">
+      <period name="1" short="1" period="1" starttime="08:00" endtime="08:40"/>
+      <period name="2" short="2" period="2" starttime="08:45" endtime="09:25"/>
+   </periods>
+   <daysdefs options="canadd,export:silent" columns="id,days,name,short">
+      <daysdef id="ANY" name="Herhangi Bir Gün" short="X" days="10000,01000,00100,00010,00001"/>
+      <daysdef id="ALL" name="Her Gün" short="E" days="11111"/>
+      <daysdef id="D1" name="Pazartesi" short="Pa" days="10000"/>
+      <daysdef id="D2" name="Salı" short="Sa" days="01000"/>
+      <daysdef id="D3" name="Çarşamba" short="Ça" days="00100"/>
+      <daysdef id="D4" name="Perşembe" short="Pe" days="00010"/>
+      <daysdef id="D5" name="Cuma" short="Cu" days="00001"/>
+   </daysdefs>
+   <subjects options="canadd,export:silent" columns="id,name,short">
+      <subject id="S1" name="Matematik" short="MAT"/>
+   </subjects>
+   <teachers options="canadd,export:silent" columns="id,name">
+      <teacher id="T1" name="YILMAZ AYŞE" short="AY"/>
+      <teacher id="T2" name="KAYA MEHMET" short="MK"/>
+      <teacher id="T3" name="DEMIR ELIF" short="ED"/>
+   </teachers>
+   <classes options="canadd,export:silent" columns="id,name,grade">
+      <class id="C1" name="5/A" grade="5"/>
+      <class id="C2" name="6/B" grade="6"/>
+   </classes>
+   <lessons options="canadd,export:silent" columns="id,subjectid,classids,teacherids">
+      <lesson id="L1" subjectid="S1" classids="C1" teacherids="T1"/>
+      <lesson id="L2" subjectid="S1" classids="C2" teacherids="T2"/>
+      <lesson id="L3" subjectid="S1" classids="C1,C2" teacherids="T3"/>
+      <lesson id="L4" subjectid="S1" classids="C1,C2" teacherids="T1,T2"/>
+   </lessons>
+   <cards options="canadd,export:silent" columns="lessonid,period,days">
+      <card lessonid="L1" period="1" days="10000"/>
+      <card lessonid="L2" period="2" days="01000"/>
+      <card lessonid="L3" period="1" days="00100"/>
+      <card lessonid="L4" period="2" days="00100"/>
+   </cards>
+</timetable>

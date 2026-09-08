@@ -1,0 +1,14 @@
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1;
+}

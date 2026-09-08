@@ -1,0 +1,160 @@
+.npw-page {
+  --npw-ink: #15233b;
+  --npw-blue: #2457d6;
+  --npw-blue-soft: #edf3ff;
+  --npw-line: #dce4f2;
+  display: flex;
+  max-width: 1280px;
+  padding: 26px 30px 48px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.npw-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.npw-eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--npw-blue);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.npw-header h1 {
+  margin: 0;
+  color: var(--npw-ink);
+  font-size: 24px;
+  font-weight: 760;
+  letter-spacing: -0.025em;
+}
+
+.npw-header p {
+  max-width: 72ch;
+  margin: 5px 0 0;
+  color: var(--color-neutral);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.npw-flow-note {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 3px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.npw-stage-rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--npw-line);
+  border-radius: 14px;
+  background: #f8faff;
+  box-shadow: 0 2px 8px rgba(32, 61, 110, 0.04);
+}
+
+.npw-stage {
+  position: relative;
+  display: grid;
+  min-height: 72px;
+  padding: 13px 18px;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-right: 1px solid var(--npw-line);
+  background: transparent;
+  color: #64748b;
+  text-align: left;
+  cursor: pointer;
+}
+
+.npw-stage:last-child {
+  border-right: 0;
+}
+
+.npw-stage::after {
+  position: absolute;
+  right: 18px;
+  bottom: 0;
+  left: 18px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: transparent;
+  content: "";
+}
+
+.npw-stage:hover {
+  background: #f2f6fd;
+  color: #334155;
+}
+
+.npw-stage--active {
+  background: #fff;
+  color: var(--npw-blue);
+}
+
+.npw-stage--active::after {
+  background: var(--npw-blue);
+}
+
+.npw-stage-step {
+  color: #9aa8bd;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.npw-stage-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.npw-stage-copy strong {
+  color: currentColor;
+  font-size: 13px;
+}
+
+.npw-stage-copy small {
+  overflow: hidden;
+  color: #7c899d;
+  font-size: 11px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.npw-workspace {
+  min-width: 0;
+}
+
+@media (max-width: 1120px) {
+  .npw-page {
+    padding-right: 22px;
+    padding-left: 22px;
+  }
+
+  .npw-flow-note {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .npw-stage::after {
+    transition: background-color 160ms ease;
+  }
+}

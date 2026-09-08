@@ -1,0 +1,22 @@
+.fd-page { display: flex; flex-direction: column; gap: 20px; max-width: 1120px; }
+.fd-page header h1 { margin: 0; font-size: 28px; color: var(--color-text-dark); }
+.fd-page header p, .fd-card p { margin: 5px 0 0; color: var(--color-neutral); }
+.fd-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; }
+.fd-form { display: grid; grid-template-columns: 1.4fr 1fr 1.3fr auto; gap: 16px; align-items: end; }
+.fd-card-title { grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start; padding-bottom: 14px; border-bottom: 1px solid var(--color-border); }
+.fd-card-title h2, .fd-list h2 { margin: 0; font-size: 18px; }
+.fd-form label { display: grid; gap: 7px; font-size: 12px; font-weight: 700; color: var(--color-text-body); text-transform: uppercase; }
+.fd-form select { width: 100%; min-height: 42px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: white; color: var(--color-text-dark); text-transform: none; }
+.fd-inline-warning { grid-column: 1 / -1; color: var(--color-warning-text, #9a5700) !important; }
+.fd-message { border-radius: var(--radius-md); padding: 12px 16px; }
+.fd-message--success { background: var(--color-success-bg); color: var(--color-success-text); }
+.fd-message--error, .fd-error { background: var(--color-error-bg); color: var(--color-error-text); }
+.fd-table-wrap { margin-top: 16px; overflow-x: auto; }
+.fd-list table { width: 100%; border-collapse: collapse; }
+.fd-list th, .fd-list td { padding: 13px 14px; border-bottom: 1px solid var(--color-border); text-align: left; }
+.fd-list th { font-size: 12px; color: var(--color-neutral); text-transform: uppercase; }
+.fd-list th:last-child, .fd-list td:last-child { width: 52px; text-align: right; }
+.fd-delete { border: 0; background: transparent; color: var(--color-error-text); cursor: pointer; padding: 6px; border-radius: 6px; }
+.fd-delete:hover { background: var(--color-error-bg); }
+.fd-empty { padding: 24px 0; text-align: center; }
+@media (max-width: 1050px) { .fd-form { grid-template-columns: 1fr 1fr; } .fd-form button { width: max-content; } }

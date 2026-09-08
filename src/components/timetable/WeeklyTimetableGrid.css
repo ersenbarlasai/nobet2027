@@ -1,0 +1,254 @@
+/* Paylaşılan haftalık program tablosu stilleri (Sınıf ve Öğretmen Ders
+   Programı ekranları arasında ortak). "ct-*" (ClassTimetablePage.css)
+   kasıtlı olarak DEĞİŞTİRİLMEDİ/bağımlı kılınmadı — bu dosya bağımsızdır. */
+
+.tt-table-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  max-height: 70vh;
+}
+
+.tt-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 13px;
+  table-layout: fixed;
+}
+
+.tt-corner,
+.tt-period-header {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  z-index: 2;
+  padding: 10px 8px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+.tt-corner {
+  left: 0;
+  z-index: 4;
+  width: 96px;
+  min-width: 96px;
+  text-align: left;
+  font-size: 12px;
+  color: var(--color-neutral);
+}
+
+.tt-period-header {
+  width: auto;
+  min-width: 0;
+  text-align: center;
+}
+
+.tt-period-name {
+  font-size: 13px;
+}
+
+.tt-period-time {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-neutral);
+  margin-top: 2px;
+}
+
+.tt-day-header {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--color-bg);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 10px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  text-align: left;
+  width: 96px;
+  min-width: 96px;
+}
+
+.tt-cell {
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 6px;
+  vertical-align: top;
+  height: 78px;
+}
+
+.tt-cell-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-neutral);
+  font-size: 13px;
+}
+
+.tt-lesson-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+}
+
+.tt-lesson-badge {
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 6px 8px;
+  overflow: hidden;
+  cursor: default;
+}
+
+.tt-lesson-subject {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 12.5px;
+}
+
+.tt-lesson-subject-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tt-lesson-ambiguous-icon {
+  color: var(--color-accent-orange);
+  flex-shrink: 0;
+}
+
+.tt-lesson-entities,
+.tt-lesson-classroom {
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.85;
+}
+
+.tt-lesson-stack--conflict .tt-lesson-badge {
+  border-color: var(--color-error-border);
+}
+
+.tt-conflict-banner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--color-error-text);
+}
+
+/* Footer */
+
+.tt-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.tt-footer-updated {
+  font-size: 12px;
+  color: var(--color-neutral);
+  margin: 0;
+}
+
+.tt-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tt-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-body);
+}
+
+.tt-legend-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+}
+
+.tt-legend-swatch--filled {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+.tt-legend-swatch--empty {
+  background: var(--color-surface);
+}
+
+.tt-legend-icon-warning {
+  color: var(--color-accent-orange);
+}
+
+.tt-legend-icon-error {
+  color: var(--color-error-text);
+}
+
+/* Empty state (durum ekranları) */
+
+.tt-empty-state {
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 56px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  color: var(--color-neutral);
+}
+
+.tt-empty-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 4px 0 0;
+}
+
+.tt-empty-desc {
+  font-size: 13px;
+  color: var(--color-neutral);
+  margin: 0;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: block;
+    padding: 12px 4px;
+  }
+
+  .print-only h2 {
+    margin: 0 0 4px;
+    font-size: 18px;
+  }
+
+  .print-only p {
+    margin: 0;
+    font-size: 12px;
+    color: #444;
+  }
+}

@@ -1,0 +1,51 @@
+.dl-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 100;
+}
+
+.dl-drawer-panel {
+  width: 420px;
+  max-width: 100%;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.dl-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dl-drawer-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin: 0;
+}
+
+.dl-drawer-form {
+  padding: 20px;
+}
+
+.dl-drawer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+  .dl-drawer-panel {
+    width: 100%;
+  }
+}

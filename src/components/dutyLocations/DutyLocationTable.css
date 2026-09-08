@@ -1,0 +1,191 @@
+.dl-table-scroll {
+  overflow-x: auto;
+}
+
+.dl-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.dl-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-neutral);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.dl-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.dl-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.dl-col-icon {
+  width: 36px;
+}
+
+.dl-row-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.dl-cell-name {
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+.dl-cell-desc {
+  font-size: 12px;
+  color: var(--color-neutral);
+  margin-top: 2px;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dl-badge-code {
+  display: inline-block;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-body);
+  white-space: nowrap;
+}
+
+.dl-capacity {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-text-body);
+  font-weight: 600;
+}
+
+.dl-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dl-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dl-status--active {
+  color: var(--color-success-text);
+}
+
+.dl-status--active .dl-status-dot {
+  background: var(--color-success-text);
+}
+
+.dl-status--inactive {
+  color: var(--color-neutral);
+}
+
+.dl-status--inactive .dl-status-dot {
+  background: var(--color-neutral);
+}
+
+.dl-col-actions {
+  white-space: nowrap;
+}
+
+.dl-row-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.dl-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-body);
+  cursor: pointer;
+}
+
+.dl-icon-btn:hover:not(:disabled) {
+  background: var(--color-bg);
+}
+
+.dl-icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dl-icon-btn--danger:hover:not(:disabled) {
+  background: var(--color-error-bg);
+  border-color: var(--color-error-border);
+  color: var(--color-error-text);
+}
+
+/* ==========================================================================
+   Nöbet bloğu rozetleri — SALT OKUNUR
+   ==========================================================================
+   Blok gereksinimleri ve sabit nöbete uygunluk okulun doğrulanmış iş
+   kurallarıdır; bu yüzden tıklanabilir/düzenlenebilir görünmemeleri için
+   bilinçli olarak buton değil rozet olarak çizilirler. */
+.dl-block-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 260px;
+}
+
+.dl-block-badge {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-body);
+  white-space: nowrap;
+}
+
+.dl-fixed-badge {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1d4ed8;
+  white-space: nowrap;
+}
+
+.dl-block-empty {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--color-neutral);
+}

@@ -1,0 +1,174 @@
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.current-import-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 22px 20px;
+  margin-bottom: 24px;
+}
+
+.current-import-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.current-import-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin: 0;
+}
+
+.current-import-desc {
+  font-size: 13px;
+  color: var(--color-neutral);
+  margin: 8px 0 0;
+}
+
+/* Başarılı durum */
+
+.current-import-card--success .current-import-icon-success {
+  color: var(--color-success-text);
+}
+
+.current-import-badge {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-success-text);
+  background: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.current-import-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 14px 0 0;
+}
+
+.current-import-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+}
+
+.current-import-meta-item dt {
+  font-size: 11px;
+  color: var(--color-neutral);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.current-import-meta-item dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.current-import-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.current-import-stat {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 10px 6px;
+  text-align: center;
+}
+
+.current-import-stat-value {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.current-import-stat-label {
+  display: block;
+  font-size: 11px;
+  color: var(--color-neutral);
+  margin-top: 2px;
+}
+
+/* Boş (nötr) durum */
+
+.current-import-card--empty .current-import-icon-neutral {
+  color: var(--color-neutral);
+}
+
+/* Hata durumu */
+
+.current-import-card--error {
+  border-color: var(--color-error-border);
+  background: var(--color-error-bg);
+}
+
+.current-import-card--error .current-import-title,
+.current-import-card--error .current-import-desc {
+  color: var(--color-error-text);
+}
+
+.current-import-card--error svg {
+  color: var(--color-error-text);
+  flex-shrink: 0;
+}
+
+.current-import-card--error .btn {
+  margin-top: 12px;
+}
+
+/* Skeleton (yükleniyor) durumu */
+
+.ci-skeleton {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  animation: ci-pulse 1.4s ease-in-out infinite;
+}
+
+.ci-skeleton-title {
+  height: 16px;
+  width: 180px;
+  margin-bottom: 10px;
+}
+
+.ci-skeleton-text {
+  height: 12px;
+  width: 260px;
+  margin-bottom: 16px;
+}
+
+.ci-skeleton-box {
+  height: 46px;
+}
+
+@keyframes ci-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}

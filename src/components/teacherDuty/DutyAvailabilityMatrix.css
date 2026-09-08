@@ -1,0 +1,750 @@
+.dam-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.dam-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dam-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin: 0 0 4px;
+}
+
+.dam-desc {
+  font-size: 13px;
+  color: var(--color-neutral);
+  margin: 0;
+}
+
+.dam-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dam-dirty-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent-orange);
+  background: var(--color-accent-orange-bg);
+  border-radius: 999px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+
+.dam-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-body);
+  cursor: pointer;
+}
+
+.dam-toggle input {
+  width: 16px;
+  height: 16px;
+}
+
+.dam-info-icon {
+  position: relative;
+  display: inline-flex;
+  color: var(--color-neutral);
+  cursor: help;
+}
+
+.dam-tooltip {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  z-index: 5;
+  width: 260px;
+  background: var(--color-text-dark);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+
+.dam-info-icon:hover .dam-tooltip,
+.dam-info-icon:focus-visible .dam-tooltip {
+  opacity: 1;
+}
+
+/* Skeleton */
+
+.dam-skeleton-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dam-skeleton-row {
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(90deg, #eef0f6 25%, #f6f7fb 37%, #eef0f6 63%);
+  background-size: 400% 100%;
+  animation: dam-shimmer 1.4s ease infinite;
+}
+
+@keyframes dam-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+/* Error / empty */
+
+.dam-error-card {
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--color-error-text);
+}
+
+.dam-error-title {
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.dam-error-desc {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+
+.dam-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 20px;
+  color: var(--color-neutral);
+  text-align: center;
+}
+
+.dam-empty-title {
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0;
+}
+
+/* Body / controls */
+
+.dam-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.dam-body--disabled .dam-table-scroll {
+  opacity: 0.55;
+}
+
+.dam-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dam-controls-spacer {
+  flex: 1;
+}
+
+.dam-summary {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-body);
+  margin: 0;
+}
+
+/* Table */
+
+.dam-table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.dam-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  min-width: 560px;
+}
+
+.dam-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  z-index: 2;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dam-col-location {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: var(--color-surface);
+  text-align: left;
+  padding: 10px 14px;
+  min-width: 210px;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+thead .dam-col-location {
+  background: var(--color-bg);
+  z-index: 4;
+}
+
+.dam-col-block {
+  padding: 8px 10px;
+  min-width: 100px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.dam-block-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.dam-block-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.dam-block-actions {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.dam-block-actions button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dam-block-actions button:disabled {
+  color: var(--color-neutral);
+  cursor: not-allowed;
+}
+
+.dam-block-count {
+  font-size: 11px;
+  color: var(--color-neutral);
+}
+
+.dam-location-name {
+  font-weight: 600;
+  color: var(--color-text-dark);
+  font-size: 13px;
+}
+
+.dam-location-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--color-neutral);
+}
+
+.dam-badge {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-weight: 600;
+  color: var(--color-text-body);
+}
+
+.dam-capacity {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.dam-cell {
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  text-align: center;
+  padding: 0;
+}
+
+.dam-cell-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  cursor: pointer;
+  position: relative;
+  background: var(--color-surface);
+}
+
+.dam-cell--selected .dam-cell-label {
+  background: var(--color-success-bg);
+  box-shadow: inset 0 0 0 2px var(--color-success-border);
+}
+
+.dam-cell-label:hover {
+  filter: brightness(0.97);
+}
+
+.dam-cell-label input[type="checkbox"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dam-cell-label input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.dam-cell-icon {
+  color: var(--color-success-text);
+  pointer-events: none;
+}
+
+/* Sabit nöbet (fixed) ve sabit-gün kilidi (locked_by_fixed_duty) */
+
+.dam-block-count--fixed {
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.dam-cell--fixed {
+  background: #eef2ff;
+}
+
+.dam-fixed-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 44px;
+  background: #eef2ff;
+  box-shadow: inset 0 0 0 2px #1d4ed8;
+  color: #1d4ed8;
+}
+
+.dam-fixed-badge {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.dam-cell--resting {
+  background: #fdf4e7;
+}
+
+.dam-resting-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 44px;
+  background: #fdf4e7;
+  box-shadow: inset 0 0 0 2px #b45309;
+  color: #b45309;
+}
+
+.dam-resting-badge {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.dam-cell--locked {
+  background: #f4f4f5;
+}
+
+.dam-locked-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  color: var(--color-neutral);
+}
+
+.dam-cell--readonly {
+  background: #f4f4f5;
+}
+
+.dam-cell--fixed-other {
+  background: #f4f4f5;
+}
+
+.dam-fixed-other-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 6px;
+  color: var(--color-neutral);
+  overflow: hidden;
+}
+
+.dam-fixed-other-name {
+  font-size: 11px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 88px;
+}
+
+.dam-cell--assignment-required {
+  background: #fef2f2;
+}
+
+.dam-assignment-required-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 4px;
+  color: #b91c1c;
+}
+
+.dam-assignment-required-label {
+  font-size: 10px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 92px;
+}
+
+.dam-row--inactive-fixed .dam-location-name {
+  color: var(--color-neutral);
+}
+
+.dam-inactive-note {
+  font-style: italic;
+}
+
+/* Pasif sabit nöbet yeri satırı: blok politikası BİLİNMEDİĞİ için blok
+   sütunları tek bir salt-okunur hücreyle temsil edilir. */
+.dam-cell--inactive-fixed {
+  background: #f4f4f5;
+}
+
+.dam-inactive-fixed-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-neutral);
+}
+
+.dam-inactive-fixed-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  color: var(--color-neutral);
+}
+
+/* ==========================================================================
+   Dört bloklu model — gün sekmeleri, blok sütunları ve yeni hücre durumları
+   ========================================================================== */
+
+/* Gün ekseni sekmeye alındı: 5 gün × 4 blok = 20 sütunluk bir tablo hem
+   yatay kaydırmayı zorunlu kılar hem de karşılaştırmayı zorlaştırır. Sekme
+   ile aynı anda tek gün gösterilir; satırlar nöbet yeri, sütunlar dört blok. */
+.dam-day-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 0;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 10px;
+}
+
+.dam-day-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dam-day-tab:hover {
+  border-color: var(--color-primary);
+}
+
+.dam-day-tab--active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.dam-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--color-bg);
+  color: var(--color-neutral);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dam-day-tab--active .dam-tab-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.dam-tab-count--fixed {
+  color: #1d4ed8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.dam-day-tab--active .dam-tab-count--fixed {
+  color: #fff;
+}
+
+.dam-day-panel {
+  padding-top: 12px;
+}
+
+.dam-day-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 0 10px;
+  font-size: 12px;
+}
+
+.dam-day-actions-label {
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+.dam-day-actions-bar button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dam-day-actions-bar button:disabled {
+  color: var(--color-neutral);
+  cursor: not-allowed;
+}
+
+.dam-fixed-day-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #1e3a8a;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Bloğun çakışan ders saati rozetı (ör. "5-OO"). */
+.dam-block-period {
+  font-size: 10px;
+  font-weight: 700;
+  color: #b45309;
+  background: #fef3c7;
+  border-radius: 999px;
+  padding: 1px 7px;
+}
+
+/* Nöbet yeri satırındaki "sabit nöbet yeri" işareti (salt-okunur). */
+.dam-fixed-eligible {
+  font-size: 10px;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #eef2ff;
+  border-radius: 999px;
+  padding: 1px 7px;
+}
+
+/* Ders çakışması: öğretmenin o gün o bloğa denk gelen dersi var. */
+.dam-cell--conflict {
+  background: #fffbeb;
+}
+
+.dam-conflict-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  color: #b45309;
+}
+
+/* Seçili ama ders çakışması nedeniyle korunmuş tercih: normal ders
+   çakışmasından (dam-cell--conflict) görsel olarak AYRIŞTIRILIR — turuncu
+   dolgu + rozet, "seçiliydi ve hâlâ kayıtlı" bilgisini taşır. */
+.dam-cell--selected-conflict {
+  background: #fef3c7;
+}
+
+.dam-selected-conflict-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 4px;
+  box-shadow: inset 0 0 0 2px #b45309;
+  color: #92400e;
+}
+
+.dam-selected-conflict-label {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 72px;
+}
+
+.dam-legend-conflict-preserved {
+  color: #b45309;
+}
+
+.dam-tab-count--conflict {
+  background: #fde68a;
+  color: #92400e;
+}
+
+.dam-day-tab--active .dam-tab-count--conflict {
+  background: #fde68a;
+  color: #92400e;
+}
+
+.dam-block-count--conflict {
+  color: #b45309;
+  font-weight: 700;
+}
+
+/* Nöbet yeri o blokta hiç görev istemiyor — hücre yok. */
+.dam-cell--not-required {
+  background: repeating-linear-gradient(
+    45deg,
+    #fafafa,
+    #fafafa 5px,
+    #f4f4f5 5px,
+    #f4f4f5 10px
+  );
+  text-align: center;
+  color: var(--color-neutral);
+}
+
+.dam-cell--not-required .dam-cell-icon {
+  color: var(--color-neutral);
+}
+
+.dam-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  color: var(--color-neutral);
+}
+
+.dam-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dam-legend-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+}
+
+.dam-legend-swatch--selected {
+  background: var(--color-success-bg, #dcfce7);
+  border-color: var(--color-success-text, #15803d);
+}
+
+/* Yarım gün kuralı açıklaması — toggle'ın hemen yanında, küçük yardımcı metin. */
+.dam-half-day-desc {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--color-neutral);
+}
