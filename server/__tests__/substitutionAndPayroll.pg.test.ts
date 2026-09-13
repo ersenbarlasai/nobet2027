@@ -12,6 +12,7 @@ describe.skipIf(!DB_URL)("ders yerine görevlendirme ve puantaj — gerçek Post
   let cardByKey: Record<string, string>;
   let listId: string;
   let absenceId: string;
+  let absenceTypeIdByName: Record<string, string>;
 
   async function rpc<T>(name: string, args: Record<string, unknown>): Promise<T> {
     const keys = Object.keys(args);
@@ -80,13 +81,15 @@ describe.skipIf(!DB_URL)("ders yerine görevlendirme ve puantaj — gerçek Post
     await rpc("import_timetable_snapshot", { p_payload: payload });
     const cards = await db.query("select c.source_card_key,c.id from public.timetable_cards c join public.timetable_imports i on i.id=c.timetable_import_id join public.campuses x on x.id=i.campus_id where x.name=$1", [campusName]);
     cardByKey = Object.fromEntries(cards.rows.map((row) => [row.source_card_key, row.id]));
+    const absenceTypes = await rpc<{ items: Array<{ id: string; currentName: string }> }>("list_absence_types", { p_campus_name: campusName });
+    absenceTypeIdByName = Object.fromEntries(absenceTypes.items.map((item) => [item.currentName, item.id]));
   });
 
   afterAll(async () => { await db.end(); });
 
   it("tam gün yokluk öğretmeni diğer ders saatinde de aday havuzundan çıkarır", async () => {
-    await rpc("create_teacher_absence", { p_campus_name: campusName, p_academic_year_name: yearName, p_teacher_source_id: "T-ALLDAY", p_date_from: "2026-09-07", p_date_to: "2026-09-07", p_reason_code: "leave", p_note: null, p_lesson_keys: [{ assignmentDate: "2026-09-07", timetableCardId: cardByKey["card-2"] }], p_absence_scope: "all_day" });
-    const created = await rpc<{ status: string; absenceId: string }>("create_teacher_absence", { p_campus_name: campusName, p_academic_year_name: yearName, p_teacher_source_id: "T-ABSENT", p_date_from: "2026-09-07", p_date_to: "2026-09-07", p_reason_code: "medical_report", p_note: null, p_lesson_keys: [{ assignmentDate: "2026-09-07", timetableCardId: cardByKey["card-1"] }], p_absence_scope: "selected_lessons" });
+    await rpc("create_teacher_absence", { p_campus_name: campusName, p_academic_year_name: yearName, p_teacher_source_id: "T-ALLDAY", p_date_from: "2026-09-07", p_date_to: "2026-09-07", p_absence_type_id: absenceTypeIdByName["İzinli"], p_note: null, p_lesson_keys: [{ assignmentDate: "2026-09-07", timetableCardId: cardByKey["card-2"] }], p_absence_scope: "all_day" });
+    const created = await rpc<{ status: string; absenceId: string }>("create_teacher_absence", { p_campus_name: campusName, p_academic_year_name: yearName, p_teacher_source_id: "T-ABSENT", p_date_from: "2026-09-07", p_date_to: "2026-09-07", p_absence_type_id: absenceTypeIdByName["Raporlu"], p_note: null, p_lesson_keys: [{ assignmentDate: "2026-09-07", timetableCardId: cardByKey["card-1"] }], p_absence_scope: "selected_lessons" });
     expect(created.status).toBe("ok"); absenceId = created.absenceId;
     const row = await db.query("select id,day_list_id from public.substitution_tasks where absence_id=$1", [absenceId]);
     listId = row.rows[0].day_list_id;
@@ -103,7 +106,7 @@ describe.skipIf(!DB_URL)("ders yerine görevlendirme ve puantaj — gerçek Post
       list.version = result.version;
     }
     await rpc("complete_substitution_day_list", { p_list_id: listId, p_expected_version: list.version });
-    const created = await rpc<{ status: string }>("create_teacher_absence", { p_campus_name: campusName, p_academic_year_name: yearName, p_teacher_source_id: "T-SECOND", p_date_from: "2026-09-07", p_date_to: "2026-09-07", p_reason_code: "official_duty", p_note: null, p_lesson_keys: [{ assignmentDate: "2026-09-07", timetableCardId: cardByKey["card-3"] }], p_absence_scope: "selected_lessons" });
+    const created = await rpc<{ status: string }>("create_teacher_absence", { p_campus_name: campusName, p_academic_year_name: yearName, p_teacher_source_id: "T-SECOND", p_date_from: "2026-09-07", p_date_to: "2026-09-07", p_absence_type_id: absenceTypeIdByName["İdari görevli"], p_note: null, p_lesson_keys: [{ assignmentDate: "2026-09-07", timetableCardId: cardByKey["card-3"] }], p_absence_scope: "selected_lessons" });
     expect(created.status).toBe("ok");
     const state = await db.query("select status,completed_at from public.substitution_day_lists where id=$1", [listId]);
     expect(state.rows[0]).toMatchObject({ status: "draft", completed_at: null });

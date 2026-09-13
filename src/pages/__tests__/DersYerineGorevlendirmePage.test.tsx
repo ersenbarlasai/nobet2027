@@ -3,10 +3,14 @@ import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-li
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import * as api from "../../lib/substitutions/api";
+import * as absenceTypesApi from "../../lib/absenceTypes/api";
 import type { SubDayList, SubListItem, SubPreparation } from "../../lib/substitutions/types";
 import DersYerineGorevlendirmePage from "../DersYerineGorevlendirmePage";
 
 vi.mock("../../lib/substitutions/api");
+vi.mock("../../lib/absenceTypes/api");
+
+const ABSENCE_TYPE_ID = "22222222-2222-4222-8222-222222222222";
 
 const TIMETABLE_CARD_ID = "11111111-1111-4111-8111-111111111111";
 const preparation: SubPreparation = {
@@ -32,6 +36,7 @@ beforeEach(() => {
     query.has("teacherSourceId") ? preparation : { ...preparation, lessons: [] });
   vi.mocked(api.fetchSubLists).mockResolvedValue({ items: [] });
   vi.mocked(api.createAbsence).mockResolvedValue({ status: "ok" });
+  vi.mocked(absenceTypesApi.fetchAbsenceTypes).mockResolvedValue({ items: [{ id: ABSENCE_TYPE_ID, isActive: true, currentName: "Raporlu", currentCreatesDebt: false, inUse: false, versions: [] }] });
 });
 
 afterEach(cleanup);
@@ -54,7 +59,7 @@ describe("DersYerineGorevlendirmePage", () => {
     expect(payload).toEqual(expect.objectContaining({
       teacherSourceId: "teacher-1",
       absenceScope: "all_day",
-      reasonCode: "medical_report",
+      absenceTypeId: ABSENCE_TYPE_ID,
       lessons: [{ assignmentDate: "2026-09-14", timetableCardId: TIMETABLE_CARD_ID }],
     }));
     expect(payload).not.toHaveProperty("selected");

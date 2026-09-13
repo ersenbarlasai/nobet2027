@@ -3,8 +3,12 @@ import { CheckCircle2, ShieldCheck } from "lucide-react";
 import { fetchTrialDataCounts } from "../lib/systemData/api";
 import type { TrialDataCounts } from "../lib/systemData/types";
 import ClearTrialRecordsDialog from "../components/systemData/ClearTrialRecordsDialog";
+import AbsenceTypesPanel from "../components/systemData/AbsenceTypesPanel";
+import EducationCalendarPanel from "../components/systemData/EducationCalendarPanel";
 import { navigate, ROUTES } from "../lib/router";
 import "./SystemDataPage.css";
+
+type SdTab = "trial" | "absenceTypes" | "educationCalendar";
 
 const ZERO_COUNTS: TrialDataCounts = {
   dutyPlanCount: 0,
@@ -44,6 +48,7 @@ const PRESERVED_ITEMS = [
 ];
 
 export default function SystemDataPage() {
+  const [tab, setTab] = useState<SdTab>("trial");
   const [counts, setCounts] = useState<TrialDataCounts | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -80,6 +85,16 @@ export default function SystemDataPage() {
     <div className="sd-page">
       <h1 className="page-title">Sistem ve Veri</h1>
 
+      <nav style={{ display: "flex", gap: 8 }}>
+        <button className={tab === "trial" ? "btn btn-primary" : "btn btn-secondary"} onClick={() => setTab("trial")}>Deneme Verisi</button>
+        <button className={tab === "absenceTypes" ? "btn btn-primary" : "btn btn-secondary"} onClick={() => setTab("absenceTypes")}>Yokluk Türleri</button>
+        <button className={tab === "educationCalendar" ? "btn btn-primary" : "btn btn-secondary"} onClick={() => setTab("educationCalendar")}>Eğitim Takvimi</button>
+      </nav>
+
+      {tab === "absenceTypes" && <AbsenceTypesPanel />}
+      {tab === "educationCalendar" && <EducationCalendarPanel />}
+
+      {tab === "trial" && <>
       {successMessage && (
         <div className="alert alert-success sd-success-banner" role="status">
           <CheckCircle2 size={18} aria-hidden="true" />
@@ -161,6 +176,7 @@ export default function SystemDataPage() {
           onCleared={handleCleared}
         />
       )}
+      </>}
     </div>
   );
 }

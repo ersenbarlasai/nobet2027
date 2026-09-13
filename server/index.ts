@@ -14,6 +14,9 @@ import { createDutyPlanDraftsRouter } from "./routes/dutyPlanDrafts";
 import { createExamInvigilationRouter } from "./routes/examInvigilation";
 import { createSubstitutionRouter } from "./routes/substitutions";
 import { createSystemDataRouter } from "./routes/systemData";
+import { createAbsenceTypesRouter } from "./routes/absenceTypes";
+import { createEducationCalendarRouter } from "./routes/educationCalendar";
+import { createMonthlyPayrollRouter } from "./routes/monthlyPayroll";
 
 const MAX_BODY_SIZE = "2mb";
 const VITE_DEV_PORT_MIN = 5173;
@@ -106,6 +109,9 @@ export function createApp(config: AppConfig, supabase: SupabaseClient = createSe
   app.use("/api/exam-invigilation", createExamInvigilationRouter(supabase, config));
   app.use("/api/substitutions", createSubstitutionRouter(supabase, config));
   app.use("/api/system-data", createSystemDataRouter(supabase, config));
+  app.use("/api/absence-types", createAbsenceTypesRouter(supabase, config));
+  app.use("/api/education-calendar", createEducationCalendarRouter(supabase, config));
+  app.use("/api/monthly-payroll", createMonthlyPayrollRouter(supabase, config));
 
   // === Hata yakalayıcı: hiçbir zaman stack trace, secret veya bağlantı
   //     bilgisi döndürmez (ör. bozuk JSON, aşırı büyük gövde) ===

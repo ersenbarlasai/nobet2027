@@ -17,7 +17,7 @@ describe("ders yerine görevlendirme route'ları", () => {
       expect(name).toBe("create_teacher_absence");
       expect(args).toMatchObject({ p_absence_scope: "all_day", p_teacher_source_id: "T1", p_lesson_keys: [{ assignmentDate: "2026-09-07", timetableCardId: TASK }] });
       return { data: { status: "ok", absenceId: ID, taskCount: 1 }, error: null };
-    })).post("/api/substitutions/absences").set("Origin", ORIGIN).send({ teacherSourceId: "T1", dateFrom: "2026-09-07", dateTo: "2026-09-07", absenceScope: "all_day", reasonCode: "leave", lessons: [{ assignmentDate: "2026-09-07", timetableCardId: TASK }] });
+    })).post("/api/substitutions/absences").set("Origin", ORIGIN).send({ teacherSourceId: "T1", dateFrom: "2026-09-07", dateTo: "2026-09-07", absenceScope: "all_day", absenceTypeId: ID, lessons: [{ assignmentDate: "2026-09-07", timetableCardId: TASK }] });
     expect(response.status).toBe(201);
   });
 
