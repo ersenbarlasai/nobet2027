@@ -75,6 +75,17 @@ export async function clearTrialRecords(
     p_academic_year_name: academicYearName,
   });
   if (error || !data) {
+    if (error) {
+      // Yalnız sunucu loguna güvenli PostgREST/Postgres tanı bilgisi yazılır;
+      // bağlantı dizesi, anahtar veya istemci girdisi loglanmaz.
+      // eslint-disable-next-line no-console
+      console.error("[server] clear_trial_records RPC başarısız:", {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+      });
+    }
     // RPC gövdesi tek bir plpgsql fonksiyonudur; bir adım başarısız olursa
     // TÜM etkiler geri alınır (Postgres fonksiyon-seviyesi atomiklik) —
     // burada hiçbir kayıt silinmemiş olur.
