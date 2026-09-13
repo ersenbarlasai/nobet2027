@@ -1,4 +1,5 @@
 import { Router, type Request, type Response } from "express";
+import { randomUUID } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AppConfig } from "../config";
 import { validateImportRequest } from "../validation/importPayload";
@@ -32,11 +33,15 @@ export function createTimetableImportsRouter(supabase: SupabaseClient, config: A
       const outcome = await importTimetableSnapshot(supabase, rpcPayload);
       res.status(200).json(outcome);
     } catch (err) {
+      const referenceId = randomUUID();
       const message = err instanceof ImportRpcError ? err.message : "Beklenmeyen bir hata oluştu.";
+      // Veritabanı ayrıntısı ve payload loglanmaz; yalnız takip kodu ve güvenli hata kodu tutulur.
+      console.error(`[timetable-import] reference=${referenceId} code=${err instanceof ImportRpcError ? (err.code ?? "rpc_error") : "unexpected_error"}`);
       res.status(502).json({
         error: "import_failed",
         message: "Veriler kaydedilemedi. Veritabanında değişiklik yapılmadı.",
         detail: message,
+        referenceId,
       });
     }
   });

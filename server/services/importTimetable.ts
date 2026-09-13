@@ -16,7 +16,15 @@ export interface ImportOutcome {
 }
 
 /** RPC çağrısı başarısız olduğunda fırlatılır. Mesajı kullanıcıya güvenle gösterilebilir; bağlantı bilgisi/stack içermez. */
-export class ImportRpcError extends Error {}
+export class ImportRpcError extends Error {
+  readonly code: string | null;
+
+  constructor(message: string, code: string | null = null) {
+    super(message);
+    this.name = "ImportRpcError";
+    this.code = code;
+  }
+}
 
 /**
  * public.import_timetable_snapshot RPC'sini çağırır. Bu RPC yalnızca
@@ -30,7 +38,7 @@ export async function importTimetableSnapshot(
 ): Promise<ImportOutcome> {
   const { data, error } = await supabase.rpc("import_timetable_snapshot", { p_payload: rpcPayload });
   if (error) {
-    throw new ImportRpcError(error.message);
+    throw new ImportRpcError(error.message, error.code ?? null);
   }
   return data as ImportOutcome;
 }

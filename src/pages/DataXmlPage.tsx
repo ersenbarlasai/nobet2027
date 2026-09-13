@@ -14,9 +14,11 @@ import {
 } from "../lib/timetableXml/parseTimetableXml";
 import { readXmlFile, validateXmlFileCandidate } from "../lib/timetableXml/xmlFile";
 import { buildImportPayload } from "../lib/timetableXml/buildImportPayload";
+import { networkImportFailure, readImportFailure, type ImportBlocker, type ImportFailure } from "../lib/timetableXml/importFailure";
 import { ASC_FORMAT_ID } from "../lib/timetableXml/ascAdapter";
 import type { TimetableImportResult } from "../lib/timetableXml/types";
 import { TIMETABLE_IMPORTS_URL } from "../lib/localApi";
+import { navigate, ROUTES } from "../lib/router";
 import CurrentImportStatus from "../components/CurrentImportStatus";
 import "./DataXmlPage.css";
 
@@ -58,7 +60,7 @@ export default function DataXmlPage() {
   const [result, setResult] = useState<TimetableImportResult | null>(null);
   const [fileMeta, setFileMeta] = useState<{ encoding: string; sha256: string } | null>(null);
   const [importing, setImporting] = useState(false);
-  const [importOutcome, setImportOutcome] = useState<{ kind: "success" | "duplicate" | "error"; message: string } | null>(null);
+  const [importOutcome, setImportOutcome] = useState<({ kind: "success" | "duplicate"; message: string } | ({ kind: "error" } & ImportFailure)) | null>(null);
   const [activeTab, setActiveTab] = useState<PreviewTab>("teachers");
   const [currentImportRefreshKey, setCurrentImportRefreshKey] = useState(0);
 
@@ -152,7 +154,7 @@ export default function DataXmlPage() {
       });
 
       if (!response.ok) {
-        setImportOutcome({ kind: "error", message: "Veriler kaydedilemedi. Veritabanında değişiklik yapılmadı." });
+        setImportOutcome({ kind: "error", ...(await readImportFailure(response)) });
         return;
       }
 
@@ -167,7 +169,7 @@ export default function DataXmlPage() {
       // sayfa yenilemeye gerek yok).
       setCurrentImportRefreshKey((k) => k + 1);
     } catch {
-      setImportOutcome({ kind: "error", message: "Veriler kaydedilemedi. Veritabanında değişiklik yapılmadı." });
+      setImportOutcome({ kind: "error", ...networkImportFailure() });
     } finally {
       setImporting(false);
     }
@@ -326,9 +328,23 @@ export default function DataXmlPage() {
             </div>
           )}
           {importOutcome && importOutcome.kind === "error" && (
-            <div className="alert alert-error" role="alert">
-              <AlertCircle size={18} strokeWidth={2} aria-hidden="true" />
-              <span>{importOutcome.message}</span>
+            <div className="alert alert-error alert-block" role="alert">
+              <div className="alert-block-header">
+                <AlertCircle size={18} strokeWidth={2} aria-hidden="true" />
+                <span>{importOutcome.message}</span>
+              </div>
+              {importOutcome.detail && <p className="alert-detail">{importOutcome.detail}</p>}
+              {importOutcome.blockers.length > 0 && (
+                <ul className="alert-list">
+                  {importOutcome.blockers.map((item) => (
+                    <li key={`${item.type}-${item.id}`} className="alert-list-item">
+                      <span><strong>{blockerTypeLabel(item.type)}:</strong> {item.name}</span>
+                      <button type="button" className="alert-action" onClick={() => navigate(blockerRoute(item))}>Çalışmayı aç</button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {importOutcome.referenceId && <small>Takip kodu: {importOutcome.referenceId}</small>}
             </div>
           )}
         </div>
@@ -349,6 +365,18 @@ export default function DataXmlPage() {
       </div>
     </div>
   );
+}
+
+function blockerTypeLabel(type: ImportBlocker["type"]): string {
+  if (type === "duty_plan") return "Nöbet planı taslağı";
+  if (type === "exam_plan") return "Deneme sınavı taslağı";
+  return "Ders yerine görevlendirme taslağı";
+}
+
+function blockerRoute(item: ImportBlocker): string {
+  if (item.type === "duty_plan") return ROUTES.dutyPlanning;
+  if (item.type === "exam_plan") return `${ROUTES.examInvigilation}?planId=${encodeURIComponent(item.id)}`;
+  return `${ROUTES.substitutions}?listId=${encodeURIComponent(item.id)}`;
 }
 
 function SummaryCard({ stats }: { stats: TimetableImportResult["stats"] }) {

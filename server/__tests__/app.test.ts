@@ -79,6 +79,24 @@ describe("POST /api/timetable-imports", () => {
 
     expect(res.status).toBe(502);
     expect(res.body.message).toBe("Veriler kaydedilemedi. Veritabanında değişiklik yapılmadı.");
+    expect(res.body.referenceId).toMatch(/^[0-9a-f-]{36}$/);
+  });
+
+  it("açık XML çalışmalarını adlarıyla döndürür ve import RPC'sini çağırmaz", async () => {
+    const blockers = [{ type: "exam_plan", id: "plan-1", name: "Deneme Sınavı" }];
+    const rpc = vi.fn(async (name: unknown) => name === "get_timetable_import_blockers"
+      ? { data: { blocked: true, currentSourceSha256: "different", items: blockers }, error: null }
+      : { data: null, error: { message: "çağrılmamalı" } });
+    const app = createApp(testConfig(), fakeSupabase(rpc));
+
+    const res = await request(app)
+      .post("/api/timetable-imports")
+      .set("Origin", "http://localhost:5173")
+      .send(buildValidImportRequestBody());
+
+    expect(res.status).toBe(409);
+    expect(res.body).toMatchObject({ error: "open_work_blocks_import", items: blockers });
+    expect(rpc).toHaveBeenCalledTimes(1);
   });
 
   it("12) hiçbir cevap secret anahtarını içermez", async () => {

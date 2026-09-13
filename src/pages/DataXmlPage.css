@@ -201,6 +201,29 @@
   gap: 4px;
 }
 
+.alert-detail {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.alert-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.alert-action {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* File row */
 
 .file-row {
