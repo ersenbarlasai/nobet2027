@@ -19,6 +19,7 @@ export const ROUTES = {
   substitutions: "/ders-yerine-gorevlendirme",
   compensationSettings: "/ucret-turleri",
   payroll: "/puantaj",
+  systemData: "/ayarlar/sistem-ve-veri",
 } as const;
 
 function subscribe(onChange: () => void) {

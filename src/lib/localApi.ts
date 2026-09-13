@@ -71,3 +71,5 @@ export function dutyLocationUrl(id: string): string {
 export function teacherDutyAvailabilityUrl(teacherId: string): string {
   return `${TEACHER_TIMETABLES_TEACHERS_URL}/${encodeURIComponent(teacherId)}/duty-availability`;
 }
+export const SYSTEM_DATA_TRIAL_COUNTS_URL = `${LOCAL_API_BASE_URL}/api/system-data/trial-data/counts`;
+export const SYSTEM_DATA_TRIAL_CLEAR_URL = `${LOCAL_API_BASE_URL}/api/system-data/trial-data/clear`;

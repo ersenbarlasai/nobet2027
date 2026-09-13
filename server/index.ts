@@ -13,6 +13,7 @@ import { createDutyPlanRouter } from "./routes/dutyPlan";
 import { createDutyPlanDraftsRouter } from "./routes/dutyPlanDrafts";
 import { createExamInvigilationRouter } from "./routes/examInvigilation";
 import { createSubstitutionRouter } from "./routes/substitutions";
+import { createSystemDataRouter } from "./routes/systemData";
 
 const MAX_BODY_SIZE = "2mb";
 const VITE_DEV_PORT_MIN = 5173;
@@ -104,6 +105,7 @@ export function createApp(config: AppConfig, supabase: SupabaseClient = createSe
   app.use("/api/duty-plans", createDutyPlanDraftsRouter(supabase, config));
   app.use("/api/exam-invigilation", createExamInvigilationRouter(supabase, config));
   app.use("/api/substitutions", createSubstitutionRouter(supabase, config));
+  app.use("/api/system-data", createSystemDataRouter(supabase, config));
 
   // === Hata yakalayıcı: hiçbir zaman stack trace, secret veya bağlantı
   //     bilgisi döndürmez (ör. bozuk JSON, aşırı büyük gövde) ===

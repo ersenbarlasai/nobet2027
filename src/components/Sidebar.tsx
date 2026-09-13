@@ -8,6 +8,7 @@ import {
   ClipboardCheck,
   UserRoundX,
   BadgeTurkishLira,
+  Settings,
 } from "lucide-react";
 import { ROUTES, navigate, usePathname } from "../lib/router";
 import "./Sidebar.css";
@@ -22,6 +23,7 @@ const menuItems = [
   { label: "Deneme Sınavı Gözetmen", icon: ClipboardCheck, path: ROUTES.examInvigilation },
   { label: "Ders Yerine Görevlendirme", icon: UserRoundX, path: ROUTES.substitutions },
   { label: "Puantaj", icon: BadgeTurkishLira, path: ROUTES.payroll },
+  { label: "Ayarlar", icon: Settings, path: ROUTES.systemData },
 ];
 
 const dutyPlanningPaths: readonly string[] = [

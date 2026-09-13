@@ -9,6 +9,7 @@ import NobetPlanlamaPage from "./pages/NobetPlanlamaPage";
 import DenemeSinaviGozetmenPage from "./pages/DenemeSinaviGozetmenPage";
 import DersYerineGorevlendirmePage from "./pages/DersYerineGorevlendirmePage";
 import PuantajPage from "./pages/PuantajPage";
+import SystemDataPage from "./pages/SystemDataPage";
 import { ROUTES, usePathname } from "./lib/router";
 import "./App.css";
 
@@ -25,6 +26,7 @@ function renderPage(pathname: string) {
   if (pathname === ROUTES.substitutions) return <DersYerineGorevlendirmePage />;
   if (pathname === ROUTES.compensationSettings) return <PuantajPage initialView="settings" />;
   if (pathname === ROUTES.payroll) return <PuantajPage />;
+  if (pathname === ROUTES.systemData) return <SystemDataPage />;
   return <DataXmlPage />;
 }
 
